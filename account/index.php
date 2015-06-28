@@ -14,17 +14,26 @@
     </script>
 </head>
 <body>
+<form id="frm" name="frm">
 <p><button id="btn_logout" name="btn_Logout" ng-click="logout()">Logout</button></p>
 <p><button id="btn_history" name="btn_history" ng-click="get_current_internet_account()">ดูบัตรอินเตอร์เน็ตล่าสุดที่ใช้</button></p>
 <p><button id="btn_history" name="btn_history" ng-click="history()">ดูประวัติการบัตรซื้ออินเตอร์เน็ต</button></p>
-<p><button id="btn_create" name="btn_create" ng-click="create_ticket()">ขอบัตรอินเตอร์นเน็ตใหม่</button></p><hr/>
-<form id="frm" name="frm">
+<p>
+    <button id="btn_create" name="btn_create" ng-click="create_ticket()">ขอบัตรอินเตอร์นเน็ตใหม่</button>
+    <?php
+        foreach($GLOBALS['ticket'] as $key => $value){
+            echo '&nbsp;<input type="radio" name="policy" id="policy" value="'.$key
+                .'" ng-model="formData.policy"/>&nbsp;'.$key.' วัน - '.$value.' บาท';
+        }
+    ?>
+</p><hr/>
     <div id="internet_data" class="container">
         <table border="1" class="table table-bordered table-responsive">
             <thead>
             <tr>
                 <th>Login</th>
                 <th>Password</th>
+                <th>Price (Baht)</th>
                 <th>Activate date</th>
             </tr>
             </thead>
@@ -32,6 +41,7 @@
             <tr ng-repeat="data in internets">
                 <td>{{data.login}}</td>
                 <td>{{data.password}}</td>
+                <td>{{data.price}}</td>
                 <td>{{data.date}}</td>
             </tr>
             </tbody>
