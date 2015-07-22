@@ -9,7 +9,7 @@
     }else if($op == "save_room"){
 
     }else if($op == "update_room"){
-
+        update_room();
     }else if($op == "delete_room"){
 
     }
@@ -19,7 +19,7 @@
         $array['records'] = array();
         try{
             $where = "";
-            if(!empty($id)){
+            if(!empty($room_no)){
                 $where = " room_no = '$room_no' ";
             }
             $sql = "select *, DATE_FORMAT(login_date,'%d/%m/%Y') as dylogin from room_account where 1=1";
@@ -43,7 +43,20 @@
     }
 
     function update_room(){
+        global $conn;
+        $array = array();
+        try{
+            $room_no = $_GET['room_no'];
+            $room_password = $_GET['room_password'];
+            if(!empty($room_no)){
+                $sql = "UPDATE room_account SET room_password='$room_password' WHERE room_no='$room_no' ";
+                $conn->query($sql);
+            }
 
+        }catch (Exception $ex){
+            $array['error'] = $ex->getMessage();
+        }
+        echo json_encode($array);
     }
 
     function delete_room(){

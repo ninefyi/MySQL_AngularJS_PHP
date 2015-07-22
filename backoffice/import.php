@@ -1,21 +1,17 @@
 <?php ob_start();
 ?>
 <!DOCTYPE html>
-<html ng-app="importApp" ng-controller="importCtrl" lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../lib/bnc.css" rel="stylesheet">
     <title>BNC Residence</title>
-    <script src="../lib/angular/angular.min.js"></script>
 </head>
 <body>
-
-<form id="frm" name="frm">
-    <div ng-include="'header.inc.php'"></div>
+<input type="button" onclick="window.location.href='main.php';" value="BACK"><br/>
+<form id="frm" name="frm" enctype="multipart/form-data" action="import_action.php" method="post">
+    <input type="file" name="file_upload" id="file_upload" />&nbsp;&nbsp;<input type="submit" value="Upload" name="btn_upload" id="btn_upload" />
 </form>
 </body>
-<script src="../lib/backoffice_import_controller.js"></script>
-<script src="../lib/bootstrap/js/ui-bootstrap-tpls-0.13.0.min.js"></script>
 </html>
 <?php ob_end_flush();?>

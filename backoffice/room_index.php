@@ -28,10 +28,15 @@
             <tbody ng-init="get_room()">
             <tr ng-repeat="data in rooms" ng-class-even="'evenRow'" ng-class-odd="'oddEven'">
                 <td>{{data.no}}</td>
-                <td>{{data.password}}</td>
+                <td>
+                    <span ng-hide="editMode">{{data.password}}</span>
+                    <input type="text" ng-show="editMode" ng-model="data.password" />
+                </td>
                 <td>{{data.date}}</td>
                 <td>
-                    <button ng-click="update_room()">Edit</button> | <button ng-click="delete_room()">Delete</button>
+                    <button ng-hide="editMode" ng-click="editMode=true;edit_room(data)">Edit</button>
+                    <button ng-show="editMode" ng-click="editMode=false;update_room(data)">Save</button>
+                    | <button ng-click="delete_room()">Delete</button>
                 </td>
             </tr>
             </tbody>
