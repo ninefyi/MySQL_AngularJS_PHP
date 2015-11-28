@@ -5,8 +5,8 @@
     $op = $_REQUEST['op'];
     $policy = $_REQUEST['policy'];
 
-    $policy_text = $GLOBALS['policy'][$policy];
-    $policy_price = $GLOBALS['ticket'][$policy];
+    $policy_text = $GLOBALS['POLICY'][$policy];
+    $policy_price = $GLOBALS['TICKET'][$policy];
 
 
     if($op == "get_current_internet_account"){
@@ -36,8 +36,8 @@
                 $login = $row['internet_login'];
             }
             if(!empty($login) and !empty($room_no) and !empty($policy_text)){
-                $sql = "INSERT INTO internet_room(room_no, internet_login, activate_date)
-                    VALUES($room_no, '$login', NOW())";
+                $sql = "INSERT INTO internet_room(room_no, internet_login, activate_date, internet_price)
+                    VALUES($room_no, '$login', NOW(), '$policy_price')";
                 $conn->query($sql);
 
                 $sql = "UPDATE internet_account

@@ -12,7 +12,7 @@
         </script>
     </head>
     <body>
-    <form id="frm" name="frm" ng-submit="processForm()" novalidate>
+    <form id="frm" name="frm" ng-submit="processForm()" novalidate="novalidate">
         <div id="login_data" class="container">
             <table border="1" class="table table-bordered table-responsive">
                 <thead>

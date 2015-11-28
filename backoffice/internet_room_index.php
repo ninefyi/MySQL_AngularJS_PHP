@@ -29,7 +29,7 @@
                 <td>{{data.login}}</td>
                 <td>{{data.date}}</td>
                 <td>
-                    <button ng-click="update_internet_room()">Edit</button> | <button ng-click="delete_internet_room()">Delete</button>
+                    <button ng-click="delete_internet_room()">Delete</button>
                 </td>
             </tr>
             </tbody>

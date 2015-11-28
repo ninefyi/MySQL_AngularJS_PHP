@@ -31,7 +31,7 @@
                 <td>{{data.policy}}</td>
                 <td>{{data.date}}</td>
                 <td>
-                    <button ng-click="update_internet_account()">Edit</button> | <button ng-click="delete_internet_account()">Delete</button>
+                    <button ng-click="delete_internet_account()">Delete</button>
                 </td>
             </tr>
             </tbody>
