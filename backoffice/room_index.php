@@ -19,10 +19,10 @@
         <table border="1" class="table table-bordered table-responsive">
             <thead>
             <tr>
-                <th>Room No.</th>
-                <th>Password</th>
-                <th>Date login</th>
-                <th>Action</th>
+                <th>ห้อง</th>
+                <th>รหัสผ่าน</th>
+                <th>วันที่เข้าใช้</th>
+                <th>การกระทำ</th>
             </tr>
             </thead>
             <tbody ng-init="get_room()">

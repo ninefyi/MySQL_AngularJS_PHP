@@ -17,19 +17,35 @@
         <table border="1" class="table table-bordered table-responsive">
             <thead>
             <tr>
-                <th>Room no.</th>
-                <th>Login</th>
-                <th>Active date</th>
-                <th>Action</th>
+                <th>ห้อง</th>
+                <th>ประเภทของบัตร</th>
+                <th>ชื่อผุ้ใช้</th>
+                <th>วันที่เริ่มใช้งาน</th>
+                <th>ราคา</th>
+                <th>สถานะการชำระเงิน</th>
+                <th>การกระทำ</th>
             </tr>
             </thead>
             <tbody ng-init="get_internet_room()">
             <tr ng-repeat="data in internets" ng-class-even="'evenRow'" ng-class-odd="'oddEven'">
                 <td>{{data.roomno}}</td>
+                <td>{{data.policy}}</td>
                 <td>{{data.login}}</td>
                 <td>{{data.date}}</td>
                 <td>
-                    <button ng-click="delete_internet_room()">Delete</button>
+                    <span ng-hide="editMode">{{data.price}}</span>
+                    <input type="text" ng-show="editMode" size="10" ng-model="data.price" />
+                </td>
+                <td>
+                    <span ng-hide="editMode">{{data.payment_text}}</span>
+                    <input type="checkbox" ng-show="editMode" size="10" ng-model="data.payment_status"
+                           ng-true-value="1" ng-false-value="0" />
+                </td>
+                <td>
+
+                    <button ng-hide="editMode" ng-click="editMode=true;edit_internet_room(data)">แก้ไข</button>
+                    <button ng-show="editMode" ng-click="editMode=false;update_internet_room(data)">บันทึก</button> |
+                    <button ng-click="delete_internet_room()">ลบ</button>
                 </td>
             </tr>
             </tbody>

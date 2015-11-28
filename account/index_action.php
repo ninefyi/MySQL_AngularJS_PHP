@@ -71,6 +71,9 @@
                       , r.room_no
                       , r.internet_price
                       , DATE_FORMAT(activate_date,'%d/%m/%Y') as alogin
+                      , UNIX_TIMESTAMP(activate_date) as ologin
+                      , a.internet_policy
+                      , r.payment_status
                     from internet_room as r
                     inner join internet_account as a on a.internet_login = r.internet_login
                     where room_no=?
@@ -83,12 +86,27 @@
             $rs = $stmt->fetchAll();
             if(!empty($rs)) {
                 foreach ($rs as $row) {
+                    $expire = "";
+                    $payment_text = "ยังไม่ได้ชำระ";
+                    $payment_status = 0;
+                    $cutoff = array_search($row['internet_policy'], $GLOBALS['POLICY']);
+                    if($row['ologin']){
+                        $expire = date("d/m/Y", strtotime("+ $cutoff day", $row['ologin']));
+                    }
+                    if($row['payment_status'] == 1){
+                        $payment_text = "ชำระเรียบร้อย";
+                        $payment_status = 1;
+                    }
                     $array['records'][] = array(
                         "id" => $row['internet_room_id'],
                         "login" => $row['internet_login'],
                         "password" => $row['internet_password'],
                         "room" => $row['room_no'],
                         "price" => $row['internet_price'],
+                        "policy" => $row['internet_policy'],
+                        "expire" => $expire,
+                        "payment_status" => $payment_status,
+                        "payment_text" => $payment_text,
                         "date" => $row['alogin']
                     , );
                 }
