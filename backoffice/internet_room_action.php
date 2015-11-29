@@ -47,7 +47,8 @@
                       , internet_account.internet_policy
                     from internet_room
                     inner join internet_account on internet_room.internet_login = internet_account.internet_login
-                    where 1=1";
+                    where 1=1
+                    order by payment_status asc, activate_date";
             $stmt = $conn->query($sql);
             $rs = $stmt->fetchAll();
             foreach($rs as $row){

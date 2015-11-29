@@ -15,18 +15,19 @@
 </head>
 <body>
 <form id="frm" name="frm">
-<p><button id="btn_logout" name="btn_Logout" ng-click="logout()">ออกจากระบบ</button></p>
-<p><button id="btn_history" name="btn_history" ng-click="get_current_internet_account()">ดูบัตรอินเตอร์เน็ตล่าสุดที่ใช้</button></p>
-<p><button id="btn_history" name="btn_history" ng-click="history()">ดูประวัติการบัตรซื้ออินเตอร์เน็ต</button></p>
-<p>
-    <button id="btn_create" name="btn_create" ng-click="create_ticket()">ขอบัตรอินเตอร์นเน็ตใหม่</button>
+<p><button id="btn_logout" name="btn_Logout" ng-click="logout()">ออกจากระบบ</button>
+    <button id="btn_history" name="btn_history" ng-click="get_current_internet_account()">ดูบัตรอินเตอร์เน็ตล่าสุดที่ใช้</button>
+    <button id="btn_history" name="btn_history" ng-click="history()">ดูประวัติการบัตรซื้ออินเตอร์เน็ต</button></p>
+<p>&nbsp;
+    <label>ขอบัตรอินเตอร์เน็ตใหม่</label>
     <?php
         foreach($GLOBALS['TICKET'] as $key => $value){
             echo '&nbsp;<input type="radio" name="policy" id="policy" value="'.$key
                 .'" ng-model="formData.policy"/>&nbsp;'.$key.' วัน - '.$value.' บาท';
         }
     ?>
-</p><hr/>
+    <button id="btn_create" name="btn_create" ng-click="create_ticket()">OK</button>
+</p><p align="left">
     <div id="internet_data" class="container">
         <table border="1" class="table table-bordered table-responsive">
             <thead>
@@ -50,10 +51,15 @@
                 <td>{{data.expire}}</td>
                 <td>{{data.payment_text}}</td>
             </tr>
+            <tr ng-if="internets.length == 0">
+                <th style="text-align: center" colspan="7">ไม่พบข้อมูล</th>
+            </tr>
             </tbody>
         </table>
     </div>
+    </p>
 </form>
+<div ng-show="loader.loading">กรุณารอสักครู่...</div>
 </body>
 <script src="../lib/account_index_controller.js"></script>
 <script src="../lib/bootstrap/js/ui-bootstrap-tpls-0.13.0.min.js"></script>

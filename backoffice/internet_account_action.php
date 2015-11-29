@@ -6,23 +6,22 @@
 
     if($op == "load_internet_account"){
         load_internet_account();
-    }else if($op == "save_internet_account"){
-
-    }else if($op == "update_internet_account"){
-
-    }else if($op == "delete_internet_account"){
-
     }
 
-    function load_internet_account($account_no = ""){
+
+    function load_internet_account(){
         global $conn;
         $array['records'] = array();
         try{
             $where = "";
-            if(!empty($id)){
-                $where = " internet_id = '$account_no' ";
+            if(!empty($_GET['policy'])){
+                $where .= " AND internet_policy='{$_GET[policy]}'";
             }
-            $sql = "select *, DATE_FORMAT(build_date,'%d/%m/%Y') as blogin from internet_account where 1=1";
+            if(!empty($_GET['activate'])){
+                $where .= "AND activate='{$_GET[activate]}'";
+            }
+            $sql = "select *, DATE_FORMAT(build_date,'%d/%m/%Y') as blogin from internet_account where 1=1 $where";
+            $array['error'] = $sql;
             $stmt = $conn->query($sql);
             $rs = $stmt->fetchAll();
             foreach($rs as $row){
@@ -40,16 +39,5 @@
         echo json_encode($array);
     }
 
-    function save_room(){
-
-    }
-
-    function update_room(){
-
-    }
-
-    function delete_room(){
-
-    }
 
 ob_end_flush();?>

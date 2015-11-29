@@ -19,7 +19,7 @@
             <tr>
                 <th>ห้อง</th>
                 <th>ประเภทของบัตร</th>
-                <th>ชื่อผุ้ใช้</th>
+                <th>ชื่อผู้ใช้</th>
                 <th>วันที่เริ่มใช้งาน</th>
                 <th>ราคา</th>
                 <th>สถานะการชำระเงิน</th>
@@ -27,7 +27,7 @@
             </tr>
             </thead>
             <tbody ng-init="get_internet_room()">
-            <tr ng-repeat="data in internets" ng-class-even="'evenRow'" ng-class-odd="'oddEven'">
+            <tr ng-repeat="data in internets" ng-class-even="'evenRow'" ng-class-odd="'oddEven'" ng-style="set_color(data.payment_status)">
                 <td>{{data.roomno}}</td>
                 <td>{{data.policy}}</td>
                 <td>{{data.login}}</td>
@@ -48,6 +48,7 @@
                     <button ng-click="delete_internet_room()">ลบ</button>
                 </td>
             </tr>
+            <tr ng-if="internets.length == 0"><th colspan="7" style="text-align: center;background-color: #c0c0c0;">ไม่พบข้อมูล</th></tr>
             </tbody>
         </table>
     </div>

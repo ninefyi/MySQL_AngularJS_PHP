@@ -6,12 +6,12 @@
 
     if($op == "load_room"){
         load_room();
-    }else if($op == "save_room"){
-
+    }else if($op == "create_room"){
+        create_room();
     }else if($op == "update_room"){
         update_room();
     }else if($op == "delete_room"){
-
+        delete_room();
     }
 
     function load_room($room_no = ""){
@@ -38,8 +38,26 @@
         echo json_encode($array);
     }
 
-    function save_room(){
+    function create_room(){
+        global $conn;
+        $array = array();
+        try{
+            $room_no = $_GET['room_no'];
+            $room_password = $_GET['room_password'];
+            if(!empty($room_no) and !empty($room_password)){
+                $sql = "INSERT INTO room_account(room_no, room_password) VALUES(?, ?)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(1, $room_no, PDO::PARAM_INT);
+                $stmt->bindParam(2, $room_password, PDO::PARAM_STR, 10);
+                $stmt->execute();
+            }else{
+                $array['error'] = "Error create_room";
+            }
 
+        }catch (Exception $ex){
+            $array['error'] = $ex->getMessage();
+        }
+        echo json_encode($array);
     }
 
     function update_room(){
@@ -60,7 +78,19 @@
     }
 
     function delete_room(){
+        global $conn;
+        $array = array();
+        try{
+            $room_no = $_GET['room_no'];
+            if(!empty($room_no)){
+                $sql = "DELETE FROM room_account WHERE room_no='$room_no' ";
+                $conn->query($sql);
+            }
 
+        }catch (Exception $ex){
+            $array['error'] = $ex->getMessage();
+        }
+        echo json_encode($array);
     }
 
 ob_end_flush();?>

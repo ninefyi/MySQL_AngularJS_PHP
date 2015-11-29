@@ -17,6 +17,9 @@
             <table border="1" class="table table-bordered table-responsive">
                 <thead>
                 <tr>
+                    <th style="text-align:center" colspan="2">BNC Residence</th>
+                </tr>
+                <tr>
                     <th>Login:</th>
                     <td><input type="text" id="txt_login" name="txt_login" class="form-control" placeholder="Enter your room no"
                                ng-model="formData.login" required/>

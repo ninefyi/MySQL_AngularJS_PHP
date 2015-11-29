@@ -13,6 +13,22 @@
 <body>
 <form id="frm" name="frm">
     <div ng-include="'header.inc.php'"></div>
+    <div>
+        <label>&nbsp;ประเภทของบัตร</label>
+        <select ng-model="formData.policy">
+        <?php
+        foreach($GLOBALS['POLICY'] as $key => $value){
+            echo '<option value="'.$value.'"">'.$key.' วัน</option>';
+        }
+        ?>
+        </select>&nbsp;
+        <label>&nbsp;สถานะของบัตร</label>
+        <select ng-model="formData.activate">
+            <option value="1">ใช้งาน</option>
+            <option value="0">ไม่ได้ใช้งาน</option>
+        </select>
+        <button ng-click="search_internet_account(formData);">ค้นหา</button>
+    </div><hr/>
     <div id="account_data" class="container">
         <table border="1" class="table table-bordered table-responsive">
             <thead>
@@ -34,6 +50,7 @@
                     <button ng-click="delete_internet_account()">Delete</button>
                 </td>
             </tr>
+            <tr ng-if="accounts.length == 0"><th colspan="5" style="text-align: center;background-color: #c0c0c0;">ไม่พบข้อมูล</th></tr>
             </tbody>
         </table>
     </div>
