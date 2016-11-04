@@ -17,6 +17,7 @@
         <table border="1" class="table table-bordered table-responsive">
             <thead>
             <tr>
+                <th><input type="checkbox" ng-model="selectedAll" ng-change="master_change()"/></th>
                 <th>ห้อง</th>
                 <th>ประเภทของบัตร</th>
                 <th>ชื่อผุ้ใช้</th>
@@ -28,6 +29,7 @@
             </thead>
             <tbody ng-init="get_internet_room()">
             <tr ng-repeat="data in internets" ng-class-even="'evenRow'" ng-class-odd="'oddEven'" ng-style="set_color(data.payment_status)">
+                <td><input type="checkbox" ng-model="data.isSelected" /></td>
                 <td>{{data.roomno}}</td>
                 <td>{{data.policy}}</td>
                 <td>{{data.login}}</td>
@@ -48,7 +50,12 @@
                     <button ng-click="delete_internet_room(data)">ลบ</button>
                 </td>
             </tr>
-            <tr ng-if="internets.length == 0"><th colspan="7" style="text-align: center;background-color: #c0c0c0;">ไม่พบข้อมูล</th></tr>
+            <tr ng-if="internets.length == 0"><th colspan="8" style="text-align: center;background-color: #c0c0c0;">ไม่พบข้อมูล</th></tr>
+            <tr ng-if="internets.length > 0">
+                <th colspan="8" style="text-align: center;background-color: #c0c0c0;">
+                    <button ng-click="update_payment();">Update payment with selected item</button>
+                </th>
+            </tr>
             </tbody>
         </table>
     </div>

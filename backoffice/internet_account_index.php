@@ -47,7 +47,7 @@
                 <td>{{data.policy}}</td>
                 <td>{{data.date}}</td>
                 <td>
-                    <button ng-click="delete_internet_account()">Delete</button>
+                    <button ng-click="delete_internet_account(data)">Delete</button>
                 </td>
             </tr>
             <tr ng-if="accounts.length == 0"><th colspan="5" style="text-align: center;background-color: #c0c0c0;">ไม่พบข้อมูล</th></tr>

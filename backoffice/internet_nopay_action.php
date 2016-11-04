@@ -12,6 +12,8 @@
         update_internet_room();
     }else if($op == "delete_internet_room"){
         delete_internet_room();
+    }else if($op == "update_internet_room_by_selected"){
+        update_internet_room_by_selected();
     }
 
     function update_internet_room(){
@@ -24,6 +26,27 @@
             $stmt->bindParam(2, $_REQUEST['price'], PDO::PARAM_INT);
             $stmt->bindParam(3, $_REQUEST['id'], PDO::PARAM_INT);
             $stmt->execute();
+            //echo json_encode($_REQUEST);
+        }catch (Exception $ex) {
+            $array['error'] = $ex->getMessage();
+            echo json_encode($array);
+        }
+        echo json_encode($array);
+    }
+
+    function update_internet_room_by_selected(){
+        global $conn;
+        $array['records'] = array();
+        try{
+            $id = $_REQUEST['id'];
+            $array_id = explode("|", $id);
+            foreach($array_id as $room_id){
+                if(!empty($room_id)){
+                    $sql = "update internet_room set payment_status = 1 where internet_room_id = $room_id";
+                    $conn->exec($sql);
+                }
+
+            }
             //echo json_encode($_REQUEST);
         }catch (Exception $ex) {
             $array['error'] = $ex->getMessage();
@@ -47,7 +70,7 @@
                     from internet_room
                     inner join internet_account on internet_room.internet_login = internet_account.internet_login
                     where payment_status = 0
-                    order by activate_date";
+                    order by room_no, activate_date";
             $stmt = $conn->query($sql);
             $rs = $stmt->fetchAll();
             foreach($rs as $row){
